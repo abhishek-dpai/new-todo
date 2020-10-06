@@ -56,7 +56,7 @@ const Form = (props) => {
   console.log("reached in Forms @@@@@@");
   return (
     <>
-      <div>
+      <form>
         <input
           value={inputText}
           onChange={inputTextHandler}
@@ -78,7 +78,7 @@ const Form = (props) => {
             <option value="sorted">Sorted</option>
           </select>
         </div>
-      </div>
+      </form>
       {showPopUp === true && <PopUpForm setDetail={setDetail} />}
       {cnt === 0 && submitTodoHandler}
     </>
