@@ -1,62 +1,71 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PopUpForm from "./PopUpForm";
 import "../App.css";
 const Form = (props) => {
   const [inputText, setInputText] = useState("");
-  const [detail, setDetail] = useState({});
+  // const [detail, setDetail] = useState(null);
   const [showPopUp, setShowPopUp] = useState(false);
   const [newId] = useState(Math.floor(Math.random() * 1000000));
-  const [cnt, setCnt] = useState(0);
-  const { setStatus, todos, setTodos } = props;
+  const { setSortingChoice, setSelector, todos, setTodos } = props;
 
   //save to local
-  const saveLocalTodos = () => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+  const saveLocalTodos = (currentTodos) => {
+    localStorage.setItem("todos", JSON.stringify(currentTodos));
   };
-  const getLocalTodos = () => {
+
+  const getLocalTodos = useCallback(() => {
     if (localStorage.getItem("todos") === null) {
       localStorage.setItem("todos", JSON.stringify([]));
     } else {
       let todoLocal = JSON.parse(localStorage.getItem("todos"));
       setTodos(todoLocal);
     }
-  };
+  }, [setTodos]);
 
   const inputTextHandler = (e) => {
     setInputText(e.target.value);
   };
-  const submitTodoHandler = (e) => {
-    console.log("newId=" + newId);
-    e.preventDefault(); // stops browser from refreshing
+  const submitTodoHandler = (detail) => {
+    // debugger;
     setTodos([
       ...todos,
       {
-        text: inputText,
+        inputText: inputText,
         completed: false,
         id: newId,
         details: detail,
       },
     ]);
-    setCnt(1);
-    console.log("in submitTodoHandler ", todos);
+
     setInputText("");
   };
 
-  const statusHandler = (e) => {
-    setStatus(e.target.value);
+  const selectorHandler = (e) => {
+    setSelector(e.target.value);
   };
+  const sortedHandler = (e) => {
+    setSortingChoice(e.target.value);
+  };
+
   const handleToggleButtonClick = (e) => {
     e.preventDefault(); // stops browser from refreshing
 
     setShowPopUp(true);
   };
-  console.log("reached in Forms @@@@@@");
   useEffect(() => {
     getLocalTodos();
-  }, []);
+  }, [getLocalTodos]);
   useEffect(() => {
-    saveLocalTodos();
-  }, [todos, saveLocalTodos]);
+    saveLocalTodos(todos);
+  }, [todos]);
+
+  // useEffect(() => {
+  //   debugger;
+  //   console.log("details in useEffect =", detail);
+  //   if(detail){
+  //     submitTodoHandler(detail);
+  //   }
+  // }, [detail]);
 
   return (
     <>
@@ -75,16 +84,26 @@ const Form = (props) => {
           <i className="fas fa-plus-square"></i>
         </button>
         <div className="select">
-          <select onChange={statusHandler} name="todos" className="filter-todo">
+          <select
+            onChange={selectorHandler}
+            name="todos"
+            className="filter-todo"
+          >
             <option value="all">All</option>
             <option value="completed">Completed</option>
             <option value="uncompleted">Uncompleted</option>
             <option value="sorted">Sorted</option>
           </select>
         </div>
+        <div className="select">
+          <select onChange={sortedHandler} name="todos" className="filter-todo">
+            <option value="unsorted">Unsorted</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+          </select>
+        </div>
       </form>
-      {showPopUp === true && <PopUpForm setDetail={setDetail} />}
-      {cnt === 0 && submitTodoHandler}
+      {showPopUp === true && <PopUpForm submitTodoHandler={submitTodoHandler} />}
     </>
   );
 };
