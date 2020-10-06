@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 function PopUpForm(props) {
   const { setDetail } = props;
-  console.log("props in popup form are", props);
   const [description, setDescription] = useState("");
   const [date, setTheDate] = useState("");
   const [priority, setPriority] = useState(-1);
@@ -35,7 +34,6 @@ function PopUpForm(props) {
   const handleSubmit = (e) => {
     setDetail({ description: description, date: date, priority: priority });
   };
-  console.log("reached in PopUoForms @@@@@@");
 
   return (
     <main className="todo-popup-container">

@@ -25,9 +25,7 @@ const Form = (props) => {
   const inputTextHandler = (e) => {
     setInputText(e.target.value);
   };
-  const submitTodoHandler = (e) => {
-    console.log("newId=" + newId);
-    e.preventDefault(); // stops browser from refreshing
+  const submitTodoHandler = () => {
     setTodos([
       ...todos,
       {
@@ -38,7 +36,6 @@ const Form = (props) => {
       },
     ]);
 
-    console.log("in submitTodoHandler ", todos);
     setInputText("");
   };
 
@@ -50,13 +47,16 @@ const Form = (props) => {
 
     setShowPopUp(true);
   };
-  console.log("reached in Forms @@@@@@");
   useEffect(() => {
     getLocalTodos();
   }, [getLocalTodos]);
   useEffect(() => {
     saveLocalTodos(todos);
   }, [todos]);
+
+  useEffect(() => {
+    submitTodoHandler();
+  }, [detail]);
 
   return (
     <>
@@ -83,9 +83,7 @@ const Form = (props) => {
           </select>
         </div>
       </form>
-      {showPopUp === true && (
-        <PopUpForm setDetail={setDetail} todos={todos} setTodos={setTodos} />
-      )}
+      {showPopUp === true && <PopUpForm setDetail={setDetail} />}
     </>
   );
 };

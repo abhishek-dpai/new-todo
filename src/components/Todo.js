@@ -5,7 +5,6 @@ const Todo = (props) => {
   // console.log("props are", props);
   const { todo, todos, setTodos } = props; //id,
   const { id: todoId } = todo || {};
-  console.log("Todo details in props are", todo.detail, "props are", props);
   const [showDetails, setShowDetails] = useState(null);
   //events
   const deleteHandler = () => {
@@ -33,7 +32,7 @@ const Todo = (props) => {
     <>
       <div className="todo">
         <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
-          {todo.inpuText}
+          {todo.inputText}
         </li>
         <li>Priority: {todo.priorityNum}</li>
         <button onClick={completeHandler} className="complete-btn">
