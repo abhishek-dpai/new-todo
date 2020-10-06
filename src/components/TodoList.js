@@ -5,10 +5,8 @@ const TodoList = (props) => {
   const { status, todos, setTodos } = props;
   console.log("filtered todos in todolist=", filteredTodos);
 
-  useEffect(() => {
-    filterHandler();
-  }, [todos, status]);
   const filterHandler = () => {
+    console.log("in filterHandler");
     switch (status) {
       case "completed":
         setFilteredTodos(todos.filter((todo) => todo.completed === true));
@@ -30,6 +28,9 @@ const TodoList = (props) => {
         break;
     }
   };
+  useEffect(() => {
+    filterHandler();
+  }, [todos, status, filterHandler]);
 
   return (
     <div className="todo-container">

@@ -32,7 +32,7 @@ function PopUpForm(props) {
         break;
     }
   };
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     setDetail({ description: description, date: date, priority: priority });
   };
   console.log("reached in PopUoForms @@@@@@");

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DetailsForm from "./DetailsForm";
 
 const Todo = (props) => {
@@ -7,7 +7,6 @@ const Todo = (props) => {
   const { id: todoId } = todo || {};
   console.log("Todo details in props are", todo.detail, "props are", props);
   const [showDetails, setShowDetails] = useState(null);
-  const [currentDetail, setCurrentDetail] = useState({});
   //events
   const deleteHandler = () => {
     setTodos(todos.filter((el) => el.id !== todo.id));

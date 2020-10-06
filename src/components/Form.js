@@ -8,12 +8,6 @@ const Form = (props) => {
   const [newId] = useState(Math.floor(Math.random() * 1000000));
   const [cnt, setCnt] = useState(0);
   const { setStatus, todos, setTodos } = props;
-  useEffect(() => {
-    getLocalTodos();
-  }, []);
-  useEffect(() => {
-    saveLocalTodos();
-  }, [todos]);
 
   //save to local
   const saveLocalTodos = () => {
@@ -44,6 +38,7 @@ const Form = (props) => {
       },
     ]);
     setCnt(1);
+    console.log("in submitTodoHandler ", todos);
     setInputText("");
   };
 
@@ -51,9 +46,18 @@ const Form = (props) => {
     setStatus(e.target.value);
   };
   const handleToggleButtonClick = (e) => {
+    e.preventDefault(); // stops browser from refreshing
+
     setShowPopUp(true);
   };
   console.log("reached in Forms @@@@@@");
+  useEffect(() => {
+    getLocalTodos();
+  }, []);
+  useEffect(() => {
+    saveLocalTodos();
+  }, [todos, saveLocalTodos]);
+
   return (
     <>
       <form>
