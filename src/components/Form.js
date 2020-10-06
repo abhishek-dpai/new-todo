@@ -3,7 +3,7 @@ import PopUpForm from "./PopUpForm";
 import "../App.css";
 const Form = (props) => {
   const [inputText, setInputText] = useState("");
-  const [detail, setDetail] = useState({});
+  // const [detail, setDetail] = useState(null);
   const [showPopUp, setShowPopUp] = useState(false);
   const [newId] = useState(Math.floor(Math.random() * 1000000));
   const { setSortingChoice, setSelector, todos, setTodos } = props;
@@ -26,7 +26,7 @@ const Form = (props) => {
     setInputText(e.target.value);
   };
   const submitTodoHandler = (detail) => {
-    debugger;
+    // debugger;
     setTodos([
       ...todos,
       {
@@ -59,11 +59,13 @@ const Form = (props) => {
     saveLocalTodos(todos);
   }, [todos]);
 
-  useEffect(() => {
-    debugger;
-    console.log("details in useEffect =", detail);
-    submitTodoHandler(detail);
-  }, [detail]);
+  // useEffect(() => {
+  //   debugger;
+  //   console.log("details in useEffect =", detail);
+  //   if(detail){
+  //     submitTodoHandler(detail);
+  //   }
+  // }, [detail]);
 
   return (
     <>
@@ -101,7 +103,7 @@ const Form = (props) => {
           </select>
         </div>
       </form>
-      {showPopUp === true && <PopUpForm setDetail={setDetail} />}
+      {showPopUp === true && <PopUpForm submitTodoHandler={submitTodoHandler} />}
     </>
   );
 };

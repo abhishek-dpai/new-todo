@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function PopUpForm(props) {
   const [description, setDescription] = useState("");
   const [date, setTheDate] = useState("");
   const [priority, setPriority] = useState(-1);
-  // const [detail, setDetail] = useState({});
+  const [detail, setDetail] = useState(null);
   const handleDescriptionChange = (event) => {
     const { value } = event.target;
     setDescription(value);
   };
-  const { setDetail } = props;
+  const { submitTodoHandler } = props;
 
   const handleDateChange = (event) => {
     const { value } = event.target;
@@ -34,14 +34,21 @@ function PopUpForm(props) {
     }
   };
   const handleSubmit = (e) => {
-    debugger;
-
+    // debugger;
+    e.preventDefault()
     setDetail({ description: description, date: date, priority: priority });
   };
 
+  useEffect(()=>{
+    console.log("detail is",detail)
+    if(detail){
+      submitTodoHandler(detail)
+    }
+  },[detail])
+
   return (
     <main className="todo-popup-container">
-      <form className="popup-form" onSubmit={handleSubmit}>
+      <form className="popup-form" >
         <input
           value={description}
           onChange={handleDescriptionChange}
@@ -59,7 +66,7 @@ function PopUpForm(props) {
         </select>
 
         <br />
-        <button>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </form>
       <hr />
       <h2>Entered information:</h2>
