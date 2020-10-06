@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PopUpForm from "./PopUpForm";
 import "../App.css";
 const Form = (props) => {
@@ -6,21 +6,21 @@ const Form = (props) => {
   const [detail, setDetail] = useState({});
   const [showPopUp, setShowPopUp] = useState(false);
   const [newId] = useState(Math.floor(Math.random() * 1000000));
-  const [cnt, setCnt] = useState(0);
   const { setStatus, todos, setTodos } = props;
 
   //save to local
-  const saveLocalTodos = () => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+  const saveLocalTodos = (currentTodos) => {
+    localStorage.setItem("todos", JSON.stringify(currentTodos));
   };
-  const getLocalTodos = () => {
+
+  const getLocalTodos = useCallback(() => {
     if (localStorage.getItem("todos") === null) {
       localStorage.setItem("todos", JSON.stringify([]));
     } else {
       let todoLocal = JSON.parse(localStorage.getItem("todos"));
       setTodos(todoLocal);
     }
-  };
+  }, [setTodos]);
 
   const inputTextHandler = (e) => {
     setInputText(e.target.value);
@@ -37,7 +37,7 @@ const Form = (props) => {
         details: detail,
       },
     ]);
-    setCnt(1);
+
     console.log("in submitTodoHandler ", todos);
     setInputText("");
   };
@@ -53,10 +53,10 @@ const Form = (props) => {
   console.log("reached in Forms @@@@@@");
   useEffect(() => {
     getLocalTodos();
-  }, []);
+  }, [getLocalTodos]);
   useEffect(() => {
-    saveLocalTodos();
-  }, [todos, saveLocalTodos]);
+    saveLocalTodos(todos);
+  }, [todos]);
 
   return (
     <>
@@ -83,8 +83,9 @@ const Form = (props) => {
           </select>
         </div>
       </form>
-      {showPopUp === true && <PopUpForm setDetail={setDetail} />}
-      {cnt === 0 && submitTodoHandler}
+      {showPopUp === true && (
+        <PopUpForm setDetail={setDetail} todos={todos} setTodos={setTodos} />
+      )}
     </>
   );
 };

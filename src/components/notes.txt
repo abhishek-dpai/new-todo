@@ -1,0 +1,2 @@
+Add a new input for sorting by priority asc or desc,
+Pass saving function here and pass updated details to that saving function.
