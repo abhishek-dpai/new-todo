@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 function PopUpForm(props) {
-  const { setDetail } = props;
   const [description, setDescription] = useState("");
   const [date, setTheDate] = useState("");
   const [priority, setPriority] = useState(-1);
@@ -9,6 +8,8 @@ function PopUpForm(props) {
     const { value } = event.target;
     setDescription(value);
   };
+  const { setDetail } = props;
+
   const handleDateChange = (event) => {
     const { value } = event.target;
     setTheDate(value);

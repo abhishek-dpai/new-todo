@@ -6,7 +6,7 @@ const Form = (props) => {
   const [detail, setDetail] = useState({});
   const [showPopUp, setShowPopUp] = useState(false);
   const [newId] = useState(Math.floor(Math.random() * 1000000));
-  const { setStatus, todos, setTodos } = props;
+  const { setSortingChoice, setSelector, todos, setTodos } = props;
 
   //save to local
   const saveLocalTodos = (currentTodos) => {
@@ -39,9 +39,13 @@ const Form = (props) => {
     setInputText("");
   };
 
-  const statusHandler = (e) => {
-    setStatus(e.target.value);
+  const selectorHandler = (e) => {
+    setSelector(e.target.value);
   };
+  const sortedHandler = (e) => {
+    setSortingChoice(e.target.value);
+  };
+
   const handleToggleButtonClick = (e) => {
     e.preventDefault(); // stops browser from refreshing
 
@@ -75,11 +79,22 @@ const Form = (props) => {
           <i className="fas fa-plus-square"></i>
         </button>
         <div className="select">
-          <select onChange={statusHandler} name="todos" className="filter-todo">
+          <select
+            onChange={selectorHandler}
+            name="todos"
+            className="filter-todo"
+          >
             <option value="all">All</option>
             <option value="completed">Completed</option>
             <option value="uncompleted">Uncompleted</option>
             <option value="sorted">Sorted</option>
+          </select>
+        </div>
+        <div className="select">
+          <select onChange={sortedHandler} name="todos" className="filter-todo">
+            <option value="unsorted">Unsorted</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
           </select>
         </div>
       </form>
