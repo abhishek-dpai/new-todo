@@ -34,9 +34,9 @@ const Todo = (props) => {
     <>
       <div className="todo">
         <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
-          {todo.textInput}
+          {todo.inputText}
         </li>
-        <li>Priority: {todo.priorityNum}</li>
+        <li>Priority: {todo.details && todo.details.priority || 0}</li>
         <button onClick={completeHandler} className="complete-btn">
           <i className="fas fa-check"> </i>
         </button>
@@ -47,7 +47,7 @@ const Todo = (props) => {
           Details
         </button>
       </div>
-      {showDetails ? <DetailsForm id={todo.id} detail={todo.detail} /> : null}
+      {showDetails ? <DetailsForm id={todo.id} detail={todo.details} /> : null}
     </>
   );
 };
