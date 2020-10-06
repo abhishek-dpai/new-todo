@@ -25,7 +25,8 @@ const Form = (props) => {
   const inputTextHandler = (e) => {
     setInputText(e.target.value);
   };
-  const submitTodoHandler = () => {
+  const submitTodoHandler = (detail) => {
+    debugger;
     setTodos([
       ...todos,
       {
@@ -59,7 +60,9 @@ const Form = (props) => {
   }, [todos]);
 
   useEffect(() => {
-    submitTodoHandler();
+    debugger;
+    console.log("details in useEffect =", detail);
+    submitTodoHandler(detail);
   }, [detail]);
 
   return (
