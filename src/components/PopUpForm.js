@@ -35,6 +35,7 @@ function PopUpForm(props) {
   const handleSubmit = () => {
     setDetail({ description: description, date: date, priority: priority });
   };
+  console.log("reached in PopUoForms @@@@@@");
 
   return (
     <main className="todo-popup-container">

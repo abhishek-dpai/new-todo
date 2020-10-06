@@ -3,9 +3,10 @@ import PopUpForm from "./PopUpForm";
 import "../App.css";
 const Form = (props) => {
   const [inputText, setInputText] = useState("");
-  const [detail, setDetail] = useState("");
+  const [detail, setDetail] = useState({});
   const [showPopUp, setShowPopUp] = useState(false);
   const [newId] = useState(Math.floor(Math.random() * 1000000));
+  const [cnt, setCnt] = useState(0);
   const { setStatus, todos, setTodos } = props;
   useEffect(() => {
     getLocalTodos();
@@ -31,7 +32,7 @@ const Form = (props) => {
     setInputText(e.target.value);
   };
   const submitTodoHandler = (e) => {
-    // console.log("newId=" + newId);
+    console.log("newId=" + newId);
     e.preventDefault(); // stops browser from refreshing
     setTodos([
       ...todos,
@@ -42,16 +43,17 @@ const Form = (props) => {
         details: detail,
       },
     ]);
-
+    setCnt(1);
     setInputText("");
   };
 
   const statusHandler = (e) => {
     setStatus(e.target.value);
   };
+  console.log("reached in Forms @@@@@@");
   return (
     <>
-      <form>
+      <div>
         <input
           value={inputText}
           onChange={inputTextHandler}
@@ -74,9 +76,9 @@ const Form = (props) => {
             <option value="sorted">Sorted</option>
           </select>
         </div>
-      </form>
+      </div>
       {showPopUp === true && <PopUpForm setDetail={setDetail} />}
-      {submitTodoHandler}
+      {cnt === 0 && submitTodoHandler}
     </>
   );
 };
