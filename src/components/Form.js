@@ -29,7 +29,7 @@ const Form = (props) => {
     setTodos([
       ...todos,
       {
-        text: inputText,
+        inputText: inputText,
         completed: false,
         id: newId,
         details: detail,

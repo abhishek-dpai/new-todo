@@ -37,7 +37,7 @@ const TodoList = (props) => {
         setFilteredTodos(todos);
         break;
     }
-  }, [sortingChoice, setSortingChoice]);
+  }, [todos, sortingChoice, setSortingChoice]);
 
   useEffect(() => {
     filterHandler();

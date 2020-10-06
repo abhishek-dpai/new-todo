@@ -4,6 +4,8 @@ import DetailsForm from "./DetailsForm";
 const Todo = (props) => {
   // console.log("props are", props);
   const { todo, todos, setTodos } = props; //id,
+  console.log("todo in Todo=", todo);
+  console.log("todos in Todo=", todos);
   const { id: todoId } = todo || {};
   const [showDetails, setShowDetails] = useState(null);
   //events
@@ -32,7 +34,7 @@ const Todo = (props) => {
     <>
       <div className="todo">
         <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
-          {todo.inputText}
+          {todo.textInput}
         </li>
         <li>Priority: {todo.priorityNum}</li>
         <button onClick={completeHandler} className="complete-btn">
