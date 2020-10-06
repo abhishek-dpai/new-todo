@@ -50,6 +50,9 @@ const Form = (props) => {
   const statusHandler = (e) => {
     setStatus(e.target.value);
   };
+  const handleToggleButtonClick = (e) => {
+    setShowPopUp(true);
+  };
   console.log("reached in Forms @@@@@@");
   return (
     <>
@@ -61,13 +64,12 @@ const Form = (props) => {
           className="todo-input"
         />
         <button
-          onClick={setShowPopUp(true)}
+          onClick={handleToggleButtonClick}
           className="todo-button"
           type="submit"
         >
           <i className="fas fa-plus-square"></i>
         </button>
-
         <div className="select">
           <select onChange={statusHandler} name="todos" className="filter-todo">
             <option value="all">All</option>
