@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
+import Calendar from "react-calendar";
 function PopUpForm(props) {
   const [description, setDescription] = useState("");
-  const [date, setTheDate] = useState("");
+  const [date, setTheDate] = useState(null);
   const [priority, setPriority] = useState(-1);
   const [detail, setDetail] = useState(null);
   const handleDescriptionChange = (event) => {
@@ -11,10 +12,14 @@ function PopUpForm(props) {
   };
   const { submitTodoHandler } = props;
 
-  const handleDateChange = (event) => {
-    const { value } = event.target;
-    setTheDate(value);
+  const handleDateChange = (date) => {
+    setTheDate(date);
   };
+
+  // const handleDateChange = (event) => {
+  //   const { value } = event.target;
+  //   setTheDate(value);
+  // };
   const handlePriorityChange = (event) => {
     const { value } = event.target;
     setPriority(value);
@@ -35,28 +40,28 @@ function PopUpForm(props) {
   };
   const handleSubmit = (e) => {
     // debugger;
-    e.preventDefault()
+    // e.preventDefault()
+    // commented preventDefault because it was stopping the PopUpForm from closing at submition
     setDetail({ description: description, date: date, priority: priority });
   };
 
-  useEffect(()=>{
-    console.log("detail is",detail)
-    if(detail){
-      submitTodoHandler(detail)
+  useEffect(() => {
+    console.log("detail is", detail);
+    if (detail) {
+      submitTodoHandler(detail);
     }
-  },[detail])
-
+  }, [detail]);
   return (
     <main className="todo-popup-container">
-      <form className="popup-form" >
+      <form className="popup-form">
         <input
           value={description}
           onChange={handleDescriptionChange}
           placeholder="Description"
         />
         <br />
-        <input value={date} onChange={handleDateChange} placeholder="Date" />
-
+        {/* <input value={date} onChange={handleDateChange} placeholder="Date" /> */}
+        <Calendar onChange={setTheDate} value={date} />
         <br />
         <select value={priority} onChange={handlePriorityChange}>
           <option value="">-- Please Choose a Priority --</option>
@@ -71,7 +76,7 @@ function PopUpForm(props) {
       <hr />
       <h2>Entered information:</h2>
       <p>Entered Description: {description}</p>
-      <p>Entered Date: {date}</p>
+      <p>Entered Date: {date && date.toDateString() || 'please add valid date'}</p>
       <p>Choosed Priority: {priority}</p>
       {/* <p>Details: {details}</p> */}
     </main>
