@@ -209,6 +209,15 @@ select {
   font-weight: bold;
   cursor: pointer;
 }
+.High {
+  color: red;
+}
+.Medium {
+  color: rgb(83, 83, 3);
+}
+.Low {
+  color: green;
+}
 /* Transition */
 /*  
 .select:hover::after {

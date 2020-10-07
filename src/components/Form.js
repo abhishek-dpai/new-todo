@@ -88,7 +88,6 @@ const Form = (props) => {
             <option value="all">All</option>
             <option value="completed">Completed</option>
             <option value="uncompleted">Uncompleted</option>
-            <option value="sorted">Sorted</option>
           </select>
         </div>
         <div className="select">

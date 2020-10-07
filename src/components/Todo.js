@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DetailsForm from "./DetailsForm";
+import "../App.css";
 
 const Todo = (props) => {
   // console.log("props are", props);
@@ -30,13 +31,26 @@ const Todo = (props) => {
     setShowDetails(true);
   };
 
+  let priorityMessage = "null";
+  switch (todo.details.priority) {
+    case 1:
+      priorityMessage = "High";
+      break;
+    case 2:
+      priorityMessage = "Medium";
+      break;
+    case 3:
+      priorityMessage = "Low";
+      break;
+  }
   return (
     <>
       <div className="todo">
         <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
           {todo.inputText}
         </li>
-        <li>Priority: {todo.details && todo.details.priority || 0}</li>
+        <li className={priorityMessage}>Priority: {priorityMessage}</li>
+        {/* <li>Priority: {(todo.details && todo.details.priority) || 0}</li> */}
         <button onClick={completeHandler} className="complete-btn">
           <i className="fas fa-check"> </i>
         </button>
