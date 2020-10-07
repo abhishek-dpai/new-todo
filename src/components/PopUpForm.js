@@ -51,7 +51,6 @@ function PopUpForm(props) {
       submitTodoHandler(detail);
     }
   }, [detail]);
-
   return (
     <main className="todo-popup-container">
       <form className="popup-form">
@@ -77,7 +76,7 @@ function PopUpForm(props) {
       <hr />
       <h2>Entered information:</h2>
       <p>Entered Description: {description}</p>
-      <p>Entered Date: {date}</p>
+      <p>Entered Date: {date && date.toDateString() || 'please add valid date'}</p>
       <p>Choosed Priority: {priority}</p>
       {/* <p>Details: {details}</p> */}
     </main>
