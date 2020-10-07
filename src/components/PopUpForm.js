@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
+import Calendar from "react-calendar";
 function PopUpForm(props) {
   const [description, setDescription] = useState("");
-  const [date, setTheDate] = useState("");
+  const [date, setTheDate] = useState(null);
   const [priority, setPriority] = useState(-1);
   const [detail, setDetail] = useState(null);
   const handleDescriptionChange = (event) => {
@@ -11,10 +12,14 @@ function PopUpForm(props) {
   };
   const { submitTodoHandler } = props;
 
-  const handleDateChange = (event) => {
-    const { value } = event.target;
-    setTheDate(value);
+  const handleDateChange = (date) => {
+    setTheDate(date);
   };
+
+  // const handleDateChange = (event) => {
+  //   const { value } = event.target;
+  //   setTheDate(value);
+  // };
   const handlePriorityChange = (event) => {
     const { value } = event.target;
     setPriority(value);
@@ -56,8 +61,8 @@ function PopUpForm(props) {
           placeholder="Description"
         />
         <br />
-        <input value={date} onChange={handleDateChange} placeholder="Date" />
-
+        {/* <input value={date} onChange={handleDateChange} placeholder="Date" /> */}
+        <Calendar onChange={setTheDate} value={date} />
         <br />
         <select value={priority} onChange={handlePriorityChange}>
           <option value="">-- Please Choose a Priority --</option>
