@@ -35,20 +35,21 @@ function PopUpForm(props) {
   };
   const handleSubmit = (e) => {
     // debugger;
-    e.preventDefault()
+    // e.preventDefault()
+    // commented preventDefault because it was stopping the PopUpForm from closing at submition
     setDetail({ description: description, date: date, priority: priority });
   };
 
-  useEffect(()=>{
-    console.log("detail is",detail)
-    if(detail){
-      submitTodoHandler(detail)
+  useEffect(() => {
+    console.log("detail is", detail);
+    if (detail) {
+      submitTodoHandler(detail);
     }
-  },[detail])
+  }, [detail]);
 
   return (
     <main className="todo-popup-container">
-      <form className="popup-form" >
+      <form className="popup-form">
         <input
           value={description}
           onChange={handleDescriptionChange}
