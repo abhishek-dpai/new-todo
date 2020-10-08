@@ -73,16 +73,10 @@ function PopUpForm(props) {
 
         <br />
         <button onClick={handleSubmit}>Submit</button>
+        <button className="details-form-close-button">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
       </form>
-      <hr />
-      <h2>Entered information:</h2>
-      <p>Entered Description: {description}</p>
-      <p>
-        {/* Entered Date: {(date && date.toDateString()) || "please add valid date"} */}
-        Entered Date: {date || "please add valid date"}
-      </p>
-      <p>Choosed Priority: {priority}</p>
-      {/* <p>Details: {details}</p> */}
     </main>
   );
 }
