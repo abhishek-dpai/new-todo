@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-
-import Calendar from "react-calendar";
 function PopUpForm(props) {
   const [description, setDescription] = useState("");
   const [date, setTheDate] = useState(null);
@@ -12,8 +10,9 @@ function PopUpForm(props) {
   };
   const { submitTodoHandler } = props;
 
-  const handleDateChange = (date) => {
-    setTheDate(date);
+  const handleDateChange = (event) => {
+    const { value } = event.target;
+    setTheDate(value);
   };
 
   // const handleDateChange = (event) => {
@@ -61,7 +60,9 @@ function PopUpForm(props) {
         />
         <br />
         {/* <input value={date} onChange={handleDateChange} placeholder="Date" /> */}
-        <Calendar onChange={setTheDate} value={date} />
+        {/* <Calendar onChange={setTheDate} value={date} /> */}
+        <input onChange={handleDateChange} type="date" name="input-date" />
+
         <br />
         <select value={priority} onChange={handlePriorityChange}>
           <option value="">-- Please Choose a Priority --</option>
@@ -76,7 +77,10 @@ function PopUpForm(props) {
       <hr />
       <h2>Entered information:</h2>
       <p>Entered Description: {description}</p>
-      <p>Entered Date: {date && date.toDateString() || 'please add valid date'}</p>
+      <p>
+        {/* Entered Date: {(date && date.toDateString()) || "please add valid date"} */}
+        Entered Date: {date || "please add valid date"}
+      </p>
       <p>Choosed Priority: {priority}</p>
       {/* <p>Details: {details}</p> */}
     </main>

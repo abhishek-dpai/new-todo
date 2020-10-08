@@ -28,7 +28,9 @@ function DetailsForm(props) {
           <h2>Description: {detail.description}</h2>
           <h1>Date: {detail.date}</h1>
           <h1>Priority: {priorityMessage}</h1>
-          <button>Close</button>
+          <button className="details-form-close-button">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
         </form>
       )) || <div>No details available</div>}
     </main>
