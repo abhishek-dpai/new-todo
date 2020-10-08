@@ -29,3 +29,12 @@ function App() {
 }
 
 export default App;
+// hide date entry bydefault     DONE
+// close buttons( X ) for forms    DONE
+// *** 1 fix asc order not working at begining
+
+// *** 2 write 20m test cases, jest and enzyme 3 to 4 hours after 2 start this one
+//          Testing with side-effect
+//          Function should be testable as a unit function
+
+// *** 3 set proper id

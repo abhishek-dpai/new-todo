@@ -21,23 +21,26 @@ const TodoList = (props) => {
 
   const sortingHandler = useCallback(() => {
     console.log("in sortingHandler");
+    let temp = [...filteredTodos];
     switch (sortingChoice) {
       case "ascending":
         setFilteredTodos(
-          todos.sort((a, b) => a.detail.priority - b.detail.priority)
+          temp.sort((a, b) => a.details.priority - b.details.priority)
         );
+        console.log("todos after asc sorting:- ", filteredTodos);
         break;
       case "descending":
         setFilteredTodos(
-          todos.sort((a, b) => b.detail.priority - a.detail.priority)
+          temp.sort((a, b) => b.details.priority - a.details.priority)
         );
+        console.log("todos after desc sorting:- ", filteredTodos);
         break;
 
       default:
         setFilteredTodos(todos);
         break;
     }
-  }, [todos, sortingChoice, setSortingChoice]);
+  }, [todos, sortingChoice, setSortingChoice, setFilteredTodos]);
 
   useEffect(() => {
     filterHandler();
@@ -45,7 +48,7 @@ const TodoList = (props) => {
 
   useEffect(() => {
     sortingHandler();
-  }, [sortingChoice, sortingHandler]);
+  }, [todos, sortingChoice, sortingHandler]);
 
   return (
     <div className="todo-container">

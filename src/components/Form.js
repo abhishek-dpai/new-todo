@@ -3,16 +3,25 @@ import PopUpForm from "./PopUpForm";
 import "../App.css";
 const Form = (props) => {
   const [inputText, setInputText] = useState("");
-  // const [detail, setDetail] = useState(null);
   const [showPopUp, setShowPopUp] = useState(false);
-  const [newId] = useState(Math.floor(Math.random() * 1000000));
+  const [newId, setNewId] = useState(0);
   const { setSortingChoice, setSelector, todos, setTodos } = props;
 
-  //save to local
+  const saveLocalNewId = (newId) => {
+    localStorage.setItem("newId", JSON.stringify(newId));
+  };
+  const getLocalNewId = useCallback(() => {
+    if (localStorage.getItem("newId") === null) {
+      localStorage.setItem("newId", JSON.stringify(newId));
+    } else {
+      let newIdLocal = JSON.parse(localStorage.getItem("newId"));
+      setNewId(newIdLocal);
+    }
+  }, [setNewId]);
+
   const saveLocalTodos = (currentTodos) => {
     localStorage.setItem("todos", JSON.stringify(currentTodos));
   };
-
   const getLocalTodos = useCallback(() => {
     if (localStorage.getItem("todos") === null) {
       localStorage.setItem("todos", JSON.stringify([]));
@@ -27,6 +36,7 @@ const Form = (props) => {
   };
   const submitTodoHandler = (detail) => {
     // debugger;
+    setNewId(newId + 1);
     setTodos([
       ...todos,
       {
@@ -43,13 +53,12 @@ const Form = (props) => {
   const selectorHandler = (e) => {
     setSelector(e.target.value);
   };
-  const sortedHandler = (e) => {
+  const sortingHandler = (e) => {
     setSortingChoice(e.target.value);
   };
 
   const handleToggleButtonClick = (e) => {
     e.preventDefault(); // stops browser from refreshing
-
     setShowPopUp(true);
   };
   useEffect(() => {
@@ -58,6 +67,13 @@ const Form = (props) => {
   useEffect(() => {
     saveLocalTodos(todos);
   }, [todos]);
+
+  useEffect(() => {
+    getLocalNewId();
+  }, [getLocalNewId]);
+  useEffect(() => {
+    saveLocalNewId(newId);
+  }, [newId]);
 
   // useEffect(() => {
   //   debugger;
@@ -92,18 +108,23 @@ const Form = (props) => {
             <option value="all">All</option>
             <option value="completed">Completed</option>
             <option value="uncompleted">Uncompleted</option>
-            <option value="sorted">Sorted</option>
           </select>
         </div>
         <div className="select">
-          <select onChange={sortedHandler} name="todos" className="filter-todo">
+          <select
+            onChange={sortingHandler}
+            name="todos"
+            className="filter-todo"
+          >
             <option value="unsorted">Unsorted</option>
             <option value="ascending">Ascending</option>
             <option value="descending">Descending</option>
           </select>
         </div>
       </form>
-      {showPopUp === true && <PopUpForm submitTodoHandler={submitTodoHandler} />}
+      {showPopUp === true && (
+        <PopUpForm submitTodoHandler={submitTodoHandler} />
+      )}
     </>
   );
 };
