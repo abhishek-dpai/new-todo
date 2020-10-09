@@ -21,7 +21,7 @@ const TodoList = (props) => {
 
   const sortingHandler = useCallback(() => {
     console.log("in sortingHandler");
-    let temp = filteredTodos;
+    let temp = [...filteredTodos];
     switch (sortingChoice) {
       case "ascending":
         setFilteredTodos(
