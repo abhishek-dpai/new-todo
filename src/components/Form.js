@@ -4,20 +4,8 @@ import "../App.css";
 const Form = (props) => {
   const [inputText, setInputText] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
-  const [newId, setNewId] = useState(0);
+  const [newId] = useState(Math.floor(Math.random() * 1000000));
   const { setSortingChoice, setSelector, todos, setTodos } = props;
-
-  const saveLocalNewId = (newId) => {
-    localStorage.setItem("newId", JSON.stringify(newId));
-  };
-  const getLocalNewId = useCallback(() => {
-    if (localStorage.getItem("newId") === null) {
-      localStorage.setItem("newId", JSON.stringify(newId));
-    } else {
-      let newIdLocal = JSON.parse(localStorage.getItem("newId"));
-      setNewId(newIdLocal);
-    }
-  }, [setNewId]);
 
   const saveLocalTodos = (currentTodos) => {
     localStorage.setItem("todos", JSON.stringify(currentTodos));
@@ -36,7 +24,6 @@ const Form = (props) => {
   };
   const submitTodoHandler = (detail) => {
     // debugger;
-    setNewId(newId + 1);
     setTodos([
       ...todos,
       {
@@ -67,13 +54,6 @@ const Form = (props) => {
   useEffect(() => {
     saveLocalTodos(todos);
   }, [todos]);
-
-  useEffect(() => {
-    getLocalNewId();
-  }, [getLocalNewId]);
-  useEffect(() => {
-    saveLocalNewId(newId);
-  }, [newId]);
 
   // useEffect(() => {
   //   debugger;

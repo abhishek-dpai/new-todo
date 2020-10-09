@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 function PopUpForm(props) {
   const [description, setDescription] = useState("");
   const [date, setTheDate] = useState(null);
-  const [priority, setPriority] = useState("none");
+  const [priority, setPriority] = useState(-1);
   const [detail, setDetail] = useState(null);
   const handleDescriptionChange = (event) => {
     const { value } = event.target;
@@ -50,18 +50,6 @@ function PopUpForm(props) {
       submitTodoHandler(detail);
     }
   }, [detail]);
-  let priorityMessage = "null";
-  switch (priority) {
-    case 1:
-      priorityMessage = "High";
-      break;
-    case 2:
-      priorityMessage = "Medium";
-      break;
-    case 3:
-      priorityMessage = "Low";
-      break;
-  }
   return (
     <main className="todo-popup-container">
       <form className="popup-form">
@@ -77,9 +65,7 @@ function PopUpForm(props) {
 
         <br />
         <select value={priority} onChange={handlePriorityChange}>
-          <option value="">
-            {priority === "none" ? "Please Choose a Priority" : priorityMessage}
-          </option>
+          <option value="">-- Please Choose a Priority --</option>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
           <option value="high">High</option>
